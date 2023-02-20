@@ -16,8 +16,12 @@ const middlewares = require('./middlewares/viewsMiddlewares')
 
 const app = express();
 createTables()
-const port = config.get('server.port');
-
+let port;
+if(process.env.PORT){
+   port = process.env.PORT
+} else {
+   port = config.get('server.port')
+}
 
 app.use(bodyParser.json());
 app.use(
