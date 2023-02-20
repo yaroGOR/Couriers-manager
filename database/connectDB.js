@@ -17,7 +17,7 @@ function connect() {
     })
   } else {
     console.log('connecting db on server')
-    return new pg.Client(connURL)
+    return new Pool(connURL)
   }
   
 }
