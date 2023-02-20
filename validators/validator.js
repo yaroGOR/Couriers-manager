@@ -18,7 +18,6 @@ const ValidateTaskInput = () => {
 };
 
 const ValidateCouriersInput = () => {
-
   return [body("name").notEmpty().withMessage("Courier`s name can`t be empty")];
 };
 const ValidateDestinationsInput = () => {

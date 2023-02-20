@@ -5,10 +5,10 @@
 //     PUT /couriers/:id
 // delete courier  DELETE /couriers/:id
 const pool = require("../database/connectDB");
-
+const queryTexts = require("../database/queryTexts");
 // get all couriers: id, name
 const getCouriers = (request, response) => {
-  pool.query("SELECT * FROM couriers ORDER BY id ASC", (error, results) => {
+  pool.query(queryTexts.QSelectCouriers, (error, results) => {
     if (error) {
       throw error;
     }
@@ -29,16 +29,12 @@ const getCourierById = (request, response) => {
 
 const createCourier = (request, response) => {
   const { name } = request.body;
-  pool.query(
-    "INSERT INTO couriers (name) VALUES ($1) RETURNING *",
-    [name],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(201).redirect("/");
+  pool.query(queryTexts.QCreateCourier, [name], (error, results) => {
+    if (error) {
+      throw error;
     }
-  );
+    response.status(201).redirect("/");
+  });
 };
 
 const updateCourier = (request, response) => {
@@ -59,7 +55,7 @@ const updateCourier = (request, response) => {
 const deleteCourier = (request, response) => {
   const id = parseInt(request.params.id);
 
-  pool.query("DELETE FROM couriers WHERE id = $1", [id], (error, results) => {
+  pool.query(queryTexts.QDeleteCourier, [id], (error, results) => {
     if (error) {
       throw error;
     }

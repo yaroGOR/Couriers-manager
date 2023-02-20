@@ -16,7 +16,7 @@ const validateTime = async (value) => {
   } catch (err) {
     console.log(err);
   }
- 
+
   if (data) {
     const isBusy = compareTime(startTime, endTime, data);
     if (isBusy) {
@@ -37,9 +37,7 @@ const compareTime = (start, end, data) => {
     endTask = new Date(element.end_time).getTime();
     if (startInput >= endTask || endInput <= startTask) {
       busy = false;
-
     }
-
   });
   return busy;
 };

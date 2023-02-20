@@ -1,12 +1,10 @@
-
-const changeTime = require('../helpers/changeTime.js')
-
+const changeTime = require("../helpers/changeTime.js");
 
 const renderHomePage = (req, res) => {
   var data = req.result;
-  data.forEach(element => {
-    changeTime(element)
-  })
+  data.forEach((element) => {
+    changeTime(element);
+  });
 
   res.render("index", {
     data: data,
@@ -23,7 +21,7 @@ const renderNewCourier = (req, res) => {
   if (req.body) {
     data = req.body.name;
   }
- 
+
   res.render("newcourier", {
     alerts: alerts,
     data: data,
@@ -47,8 +45,6 @@ const renderNewDestination = (req, res) => {
 };
 
 const renderNewTask = (req, res) => {
-  
-
   const alerts = [];
   var couriers = req.couriers;
   var destinations = req.destinations;
@@ -66,7 +62,7 @@ const renderNewTask = (req, res) => {
   if (req.body) {
     data = req.body;
   }
-  
+
   res.render("newtask", {
     couriers: couriers,
     destinations: destinations,

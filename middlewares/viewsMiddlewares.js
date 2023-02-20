@@ -28,7 +28,6 @@ const sendDestinations = (req, res, next) => {
   }
 };
 
-
 const sendTableData = (req, res, next) => {
   try {
     getData(queries.QAllData).then((result) => {

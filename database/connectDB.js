@@ -2,9 +2,8 @@ const pg = require("pg");
 const Pool = pg.Pool;
 const connURL = process.env.PG_URI;
 function connect() {
-  console.log("connect = ", process.env.PORT);
   if (!process.env.PORT) {
-    console.log("running localhost");
+    console.log("Running DB on localhost");
     return new Pool({
       user: process.env.PG_USER,
       host: process.env.PG_HOST,
@@ -13,7 +12,7 @@ function connect() {
       port: process.env.PG_PORT,
     });
   } else {
-    console.log("connecting db on server");
+    console.log("Сonnecting DB on server");
     return new Pool({ connURL });
   }
 }
