@@ -17,7 +17,7 @@ function connect() {
     })
   } else {
     console.log('connecting db on server')
-    return new Pool(connURL)
+    return new Pool({connURL,})
   }
   
 }
