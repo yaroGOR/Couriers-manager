@@ -1,6 +1,6 @@
 const pg =require('pg')
 const Pool = pg.Pool
-const connURL = 'postgres://poster:lFiogOtCjCoWDTIfyad1WIJGef2afj5b@dpg-cfpqt082i3mo4bsqe4o0-a/poster_99c1'
+const connURL = process.env.PG_URI
 function connect() {
   console.log('connect = ', process.env.PORT)
   if (!process.env.PORT) {
