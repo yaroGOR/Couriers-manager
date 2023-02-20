@@ -14,8 +14,9 @@ function createTables() {
         console.log(error)
         console.log('error while table creating')
       }
+      console.log('Tables created')
+
     })})
-    console.log('Tables created')
 
   
 }
