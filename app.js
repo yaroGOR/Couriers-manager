@@ -22,7 +22,7 @@ if(process.env.PORT){
 } else {
    port = config.get('server.port')
 }
-
+console.log(process.env.PG_HOST)
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
