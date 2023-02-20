@@ -1,0 +1,13 @@
+<h1 class="title">Create new destination</h1>
+
+
+<form class="ui form" action="/destinations/new" method="POST">
+  <div class="form-row field">
+
+  <label class="label" for="name">Destiantion name:</label>
+  <input class="input" value="<%= data %>"  name="name" id="destiantionname" placeholder="Enter destinationname" />
+  </div>
+  <% if(alerts){%> <p><%= alerts %></p> <%}%>
+
+  <button class="button">Create</button>
+</form>

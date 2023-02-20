@@ -1,0 +1,32 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>taskID</th>
+        <th>courierID</th>
+        <th>destinationID</th>
+
+        <th>Courier</th>
+        <th>Destination</th>
+        <th>Start time</th>
+        <th>End time</th>
+    </tr>
+</thead>
+    
+    <% data.forEach((element)=>{ %>
+       <tr>
+        <th class="table-cell">
+            <div>
+                <button id='delete' onClick="handleDeleteClick(<%=element.id %>)"   class="button visible">delete</button> 
+            </div>
+            <div id="taskID"><%= element.id %></div></th>
+        <th><%= element.couriers_id %> </th>
+        <th><%= element.destination_id %> </th>
+
+         <th><%= element.name %> </th>
+        <th><%= element.destination_name %> </th>
+        <th><%= element.start_time %> </th>
+        <th><%= element.end_time %> </th>
+         </tr>
+        <% }); %>
+
+</table>

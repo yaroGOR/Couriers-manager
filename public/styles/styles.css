@@ -1,0 +1,23 @@
+.table-cell:hover  .visible{
+    color: red;
+    visibility: visible;
+
+    
+}
+.table-cell  .visible{
+    color: red;
+    visibility: hidden;
+
+    
+}
+.table-cell{
+    display: flex;
+}
+.visible{
+}
+.visible:hover{
+    display: flex;
+}
+th{
+    color: green;
+}

@@ -1,0 +1,11 @@
+    
+    
+    <h1 class="form-title title">Create new courier</h1>
+      <form action="/couriers/new" method="POST">
+        <div class="form-row">
+        <label class="label" for="name">Name:</label>
+        <input class="input" value="<%= data %>" name="name" id="name" placeholder="Enter name"/>
+      </div>
+         <p><%= alerts %></p>
+        <button class="button">Create</button>
+      </form>
