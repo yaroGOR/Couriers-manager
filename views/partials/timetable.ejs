@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table sortable">
     <thead>
     <tr>
         <th>taskID</th>
@@ -13,7 +13,7 @@
 </thead>
     
     <% data.forEach((element)=>{ %>
-       <tr>
+       <tr class="item">
         <th class="table-cell">
             <div>
                 <button id='delete' onClick="handleDeleteClick(<%=element.id %>)"   class="button visible">delete</button> 

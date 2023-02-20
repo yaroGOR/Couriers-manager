@@ -1,4 +1,5 @@
 
+
 async function Delete(url, id) {
   const res = await fetch(url + "/" + id, {
     method: "DELETE",
@@ -14,3 +15,5 @@ function handleDeleteClick(taskID) {
   alert(`Deleted with id ${taskID}`);
 
 }
+
+
