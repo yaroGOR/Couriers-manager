@@ -27,13 +27,7 @@ const sendDestinations = (req, res, next) => {
     });
   }
 };
-const sendAlerts = (req, res, next) => {
-  console.log("eq.locals");
-  console.log(req.query);
-  console.log("alerts", req.body);
 
-  return next();
-};
 
 const sendTableData = (req, res, next) => {
   try {
@@ -52,7 +46,6 @@ const sendTableData = (req, res, next) => {
 };
 
 module.exports = {
-  sendAlerts,
   sendCouriers,
   sendDestinations,
   sendTableData,

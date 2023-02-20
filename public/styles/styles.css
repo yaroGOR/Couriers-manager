@@ -1,23 +1,27 @@
-.table-cell:hover  .visible{
-    color: red;
-    visibility: visible;
+* {
+    padding-top: 0.2rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+table {
+    text-align: center;
+   
+}
+.table-cell {
+    display: flex;
+    gap: 1rem;
+}
+.main{
+    display: flex;
+    justify-content: center;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     
-}
-.table-cell  .visible{
-    color: red;
-    visibility: hidden;
-
-    
-}
-.table-cell{
-    display: flex;
-}
-.visible{
-}
-.visible:hover{
-    display: flex;
-}
-th{
-    color: green;
 }

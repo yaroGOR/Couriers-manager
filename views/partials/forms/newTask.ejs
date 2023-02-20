@@ -1,4 +1,4 @@
-<h1>Create new task</h1>
+<h1 class="title">Create new task</h1>
 
 
       <form class="form" action="/tasks/new" method="POST">
@@ -11,20 +11,25 @@
 <div class="form-row">
 
         <label class="label" for="courier_id">Select courier:</label>
-        <select class="select" value="<%=data.courier_id %>" name="courier_id" id="name" placeholder="Enter name">
+        <div class="select">
+        <select  value="<%=data.courier_id %>" name="courier_id" id="name" placeholder="Enter name">
             <% couriers.forEach((courier)=>{ %>
              <option value=<%=courier.id %>><%= courier.name %> </option>
              <% }); %>
           </select>
+        </div>
 </div>
 <div class="form-row">
 
         <label class="label" for="destination_id">Select destiantion:</label>
-        <select class='select'value="<%=data.destiantion_id %>" name="destination_id" id="name" placeholder="Enter name">
+        <div class="select">
+
+        <select value="<%=data.destiantion_id %>" name="destination_id" id="name" placeholder="Enter name">
           <% destinations.forEach((destination)=>{ %>
             <option value=<%=destination.id %>><%= destination.destination_name %> </option>
             <% }); %>
         </select>
+        </div>
        </div>
        <div class="form-row">
 
@@ -38,7 +43,7 @@
 </div>
 </div>
 
-<button class="button">Create Task</button>
+<button class="button is-primary">Create Task</button>
 <% if(typeof (alerts) != 'undefined') {%> 
 
   <% alerts.forEach((alert)=>{ %>

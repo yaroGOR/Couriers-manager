@@ -5,7 +5,6 @@ const validateTime = async (value) => {
   const id = value.courier_id;
   let startTime = value.start_time;
   let endTime = value.end_time;
-  console.log("Validate if  courier is busy? courier ID =", id);
   let data;
   try {
     await pool

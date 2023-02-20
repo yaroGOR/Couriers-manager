@@ -1,9 +1,8 @@
 <table class="table sortable">
     <thead>
     <tr>
-        <th>taskID</th>
-        <th>courierID</th>
-        <th>destinationID</th>
+        <th>Action</th>
+       
 
         <th>Courier</th>
         <th>Destination</th>
@@ -16,11 +15,9 @@
        <tr class="item">
         <th class="table-cell">
             <div>
-                <button id='delete' onClick="handleDeleteClick(<%=element.id %>)"   class="button visible">delete</button> 
+                <button  id='delete' onClick="handleDeleteClick(<%=element.id %>)"   class=" button is-small is-danger visible ">delete</button> 
             </div>
-            <div id="taskID"><%= element.id %></div></th>
-        <th><%= element.couriers_id %> </th>
-        <th><%= element.destination_id %> </th>
+        </th>
 
          <th><%= element.name %> </th>
         <th><%= element.destination_name %> </th>

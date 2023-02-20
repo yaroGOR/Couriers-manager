@@ -12,7 +12,7 @@ router.post("/newcourier", controller.renderNewCourier);
 router.get("/newdestination", controller.renderNewDestination);
 router.post("/newdestination", controller.renderNewDestination);
 
-router.get("/newtask",middlewares.sendAlerts, middlewares.sendCouriers, middlewares.sendDestinations, controller.renderNewTask);
-router.post("/newtask",middlewares.sendAlerts, middlewares.sendCouriers, middlewares.sendDestinations, controller.renderNewTask );
+router.get("/newtask", middlewares.sendCouriers, middlewares.sendDestinations, controller.renderNewTask);
+router.post("/newtask", middlewares.sendCouriers, middlewares.sendDestinations, controller.renderNewTask );
 
 module.exports=router;
