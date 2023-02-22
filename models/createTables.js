@@ -2,9 +2,10 @@ const pool = require("../database/connectDB");
 const qTexts = require("../database/queryTexts");
 function createTables() {
   const tablesQ = [
+    qTexts.QCreateFunctionCheckTime,
+
     qTexts.QCreateCouriers,
     qTexts.QCreateDestinations,
-    qTexts.QCreateFunctionCheckTime,
     qTexts.QCreateTasks,
   ];
   tablesQ.forEach((query) => {

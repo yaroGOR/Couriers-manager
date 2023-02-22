@@ -43,7 +43,7 @@ BEGIN
   );
 END;
 $$
-LANGUAGE plpgsql;`
+LANGUAGE plpgsql`
 
 
 module.exports = {
