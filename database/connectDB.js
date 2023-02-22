@@ -13,7 +13,7 @@ function connect() {
     });
   } else {
     console.log("Сonnecting DB on server");
-    return new Pool({ connURL });
+    return new Pool({ connectionString: connURL });
   }
 }
 let pool = connect();
