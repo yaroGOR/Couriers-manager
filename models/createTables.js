@@ -4,6 +4,7 @@ function createTables() {
   const tablesQ = [
     qTexts.QCreateCouriers,
     qTexts.QCreateDestinations,
+    qTexts.QCreateFunctionCheckTime,
     qTexts.QCreateTasks,
   ];
   tablesQ.forEach((query) => {

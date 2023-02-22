@@ -17,7 +17,7 @@ const QSelectCourierWithId = `SELECT t.id, t.start_time, t.end_time, c.name, d.d
 
 const QCreateTask =
   "INSERT INTO tasks (courier_id, destination_id, start_time, end_time) VALUES ($1,$2,$3,$4) RETURNING *";
-  
+
 const QDeleteTask = "DELETE FROM tasks WHERE id = $1";
 
 const QCreateCouriers =
@@ -32,23 +32,18 @@ const QCreateDestinations =
     
 `;
 
-const QCreateTrigger = `CREATE FUNCTION check_courier_availability() RETURNS trigger AS $$
+const QCreateFunctionCheckTime = `CREATE OR REPLACE FUNCTION check_overlapping_tasks(courier_id integer, start_time timestamp with time zone, end_time timestamp with time zone)
+RETURNS BOOLEAN AS
+$$
 BEGIN
-    IF EXISTS (
-        SELECT 1 FROM orders o
-        WHERE o.courier_id = NEW.courier_id
-        AND ((o.start_time, o.end_time) OVERLAPS (NEW.start_time, NEW.end_time))
-    ) THEN
-        RAISE EXCEPTION 'Time interval overlaps with existing order';
-    END IF;
-    RETURN NEW;
+  RETURN NOT EXISTS (
+    SELECT 1 FROM tasks t
+    WHERE t.courier_id = check_overlapping_tasks.courier_id
+    AND ((t.start_time, t.end_time) OVERLAPS (check_overlapping_tasks.start_time, check_overlapping_tasks.end_time))
+  );
 END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER check_courier_availability_trigger
-BEFORE INSERT ON orders
-FOR EACH ROW
-EXECUTE FUNCTION check_courier_availability();`
+$$
+LANGUAGE plpgsql;`
 
 
 module.exports = {
@@ -65,4 +60,5 @@ module.exports = {
   QCreateCouriers,
   QCreateDestinations,
   QCreateTasks,
+  QCreateFunctionCheckTime
 };
