@@ -17,14 +17,39 @@ const QSelectCourierWithId = `SELECT t.id, t.start_time, t.end_time, c.name, d.d
 
 const QCreateTask =
   "INSERT INTO tasks (courier_id, destination_id, start_time, end_time) VALUES ($1,$2,$3,$4) RETURNING *";
+  
 const QDeleteTask = "DELETE FROM tasks WHERE id = $1";
 
 const QCreateCouriers =
   " CREATE TABLE IF NOT EXISTS couriers ( ID SERIAL PRIMARY KEY, name VARCHAR(50) )";
 const QCreateDestinations =
   "CREATE TABLE IF NOT EXISTS destinations ( ID SERIAL PRIMARY KEY, destination_name VARCHAR(50))";
-const QCreateTasks =
-  "CREATE TABLE IF NOT EXISTS tasks (ID SERIAL PRIMARY KEY, courier_id INT REFERENCES couriers(id),  destination_id INT  REFERENCES destinations(id),  start_time DATE, end_time DATE)";
+
+  const QCreateTasks =
+  `CREATE TABLE IF NOT EXISTS tasks (ID SERIAL PRIMARY KEY, courier_id INT REFERENCES couriers(id),  destination_id INT  REFERENCES destinations(id),  start_time DATE, end_time DATE, 
+  CONSTRAINT check_courier_availability CHECK (check_overlapping_tasks(courier_id, start_time, end_time))
+  )
+    
+`;
+
+const QCreateTrigger = `CREATE FUNCTION check_courier_availability() RETURNS trigger AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM orders o
+        WHERE o.courier_id = NEW.courier_id
+        AND ((o.start_time, o.end_time) OVERLAPS (NEW.start_time, NEW.end_time))
+    ) THEN
+        RAISE EXCEPTION 'Time interval overlaps with existing order';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_courier_availability_trigger
+BEFORE INSERT ON orders
+FOR EACH ROW
+EXECUTE FUNCTION check_courier_availability();`
+
 
 module.exports = {
   QSelectCouriers,

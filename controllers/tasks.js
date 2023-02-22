@@ -6,7 +6,7 @@
 //    PUT /tasks/:id
 // delete task  DELETE /tasks/:id
 const pool = require("../database/connectDB");
-
+const {hadleControllerError} = require('../helpers/handleControllerErrors')
 const queryTexts = require("../database/queryTexts");
 
 const getTasks = (request, response) => {
@@ -35,11 +35,14 @@ const createTask = (request, response) => {
     [courier_id, destination_id, start_time, end_time],
     (error, results) => {
       if (error) {
-        throw error;
-      }
+        hadleControllerError(request, response, error)
+        
+      } else {
       response.status(201).redirect("/");
     }
+    }
   );
+ 
 };
 
 const updateTask = (request, response) => {
