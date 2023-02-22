@@ -32,7 +32,7 @@ const QCreateDestinations =
     
 `;
 
-const QCreateFunctionCheckTime = `CREATE OR REPLACE FUNCTION check_overlapping_tasks(courier_id integer, start_time timestamp with time zone, end_time timestamp with time zone)
+const QCreateFunctionCheckTime = `CREATE OR REPLACE FUNCTION check_overlapping_tasks(courier_id integer, start_time date, end_time date)
 RETURNS BOOLEAN AS
 $$
 BEGIN
