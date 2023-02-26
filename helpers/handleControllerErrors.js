@@ -1,6 +1,5 @@
 const hadleControllerError = (req, res, err) => {
-    if (err.code === 23514) {
-      console.log('Courier is busy')
+    if (err.code == 23514) {
   
       const errorMsg='Courier is busy at this time'
       const URLString =

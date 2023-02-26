@@ -1,66 +1,53 @@
-// dispaly homepage - GET /
-// get all destinations - GET /destinations
-// get selected id courier - GET  /destinations/:id
-//create destination - POST /destinations
-// update destination  PUT /destinations/:id
-// delete courier  DELETE /destinations/:id
-const pool = require("../database/connectDB");
+const services = require("../services/destinations");
 
-const queryTexts = require("../database/queryTexts");
-
-const getDestinations = (request, response) => {
-  pool.query(queryTexts.QSelectDestinations, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
+const getDestinations = async (request, response) => {
+  try {
+    const destinations = await services.getAllDestinations();
+    response.status(200).json(destinations);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const getDestinationById = (request, response) => {
-  // const id = parseInt(request.params.id)
-  // pool.query('SELECT * FROM destinations WHERE id = $1', [id], (error, results) => {
-  //   if (error) {
-  //     throw error
-  //   }
-  //   response.status(200).json(results.rows)
-  // })
+const getDestinationById = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    const destination = await services.getDestinationById(id);
+    response.status(200).json(destination);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const createDestination = (request, response) => {
-  const { name } = request.body;
-
-  pool.query(queryTexts.QCreateDestination, [name], (error, results) => {
-    if (error) {
-      throw error;
-    }
+const createDestination = async (request, response) => {
+  try {
+    const { name } = request.body;
+    await services.createDestination(name);
     response.status(201).redirect("/");
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
-const updateDestination = (request, response) => {
-  // const id = parseInt(request.params.id)
-  // const { name } = request.body
-  // pool.query(
-  //   'UPDATE destinations SET destination_name = $1 WHERE id = $2',
-  //   [name, id],
-  //   (error, results) => {
-  //     if (error) {
-  //       throw error
-  //     }
-  //     response.status(200).send(`Destination modified with ID: ${id}`)
-  //   }
-  // )
+const updateDestination = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    const { name } = request.body;
+    await services.updateDestination(id, name);
+    response.status(200).send(`Destination modified with ID: ${id}`);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const deleteDestination = (request, response) => {
-  // const id = parseInt(request.params.id)
-  // pool.query('DELETE FROM destinations WHERE id = $1', [id], (error, results) => {
-  //   if (error) {
-  //     throw error
-  //   }
-  //   response.status(200).send(`Destination deleted with ID: ${id}`)
-  // })
+const deleteDestination = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    await services.deleteDestination(id);
+    response.status(200).send(`Destination deleted with ID: ${id}`);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {

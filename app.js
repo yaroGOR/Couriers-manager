@@ -1,26 +1,29 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
-const createTables = require('./models/createTables')
-const morgan = require("morgan");
+
+const createTables = require("./models/createTables");
+// const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const config = require('config')
-
-
+const config = require("config");
 const couriersRouter = require("./routes/couriers");
 const destinationsRouter = require("./routes/destinations");
 const tasksRouter = require("./routes/tasks");
 const viewsRouter = require("./routes/views");
-const middlewares = require('./middlewares/viewsMiddlewares')
+
+
 
 
 const app = express();
-createTables()
 let port;
-if(process.env.PORT){
-   port = process.env.PORT
+
+createTables();
+
+
+if (process.env.PORT) {
+  port = process.env.PORT;
 } else {
-   port = config.get('server.port')
+  port = config.get("server.port");
 }
 
 app.use(bodyParser.json());
@@ -42,7 +45,6 @@ app.use("/tasks", tasksRouter);
 app.listen(port, function () {
   console.log(`server is running on ${port}`);
 });
-
 
 // app.use('/' ,
 // (req, res, next)=>{

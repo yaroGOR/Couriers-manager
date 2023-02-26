@@ -1,74 +1,58 @@
-// dispaly homepage - GET /
-// get all tasks - GET /tasks
-// get selected id task - GET  /tasks/:id
-//create task - POST /tasks
-// update task
-//    PUT /tasks/:id
-// delete task  DELETE /tasks/:id
-const pool = require("../database/connectDB");
-const {hadleControllerError} = require('../helpers/handleControllerErrors')
-const queryTexts = require("../database/queryTexts");
 
-const getTasks = (request, response) => {
-  pool.query(queryTexts.QSelectTasks, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
+
+
+const services = require("../services/tasks");
+const { hadleControllerError } = require("../helpers/handleControllerErrors");
+
+const getTasks = async (request, response) => {
+  try {
+    const tasks = await services.getAllTasks();
+    response.status(200).json(tasks);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const getTaskById = (request, response) => {
-  // const id = parseInt(request.params.id)
-  // pool.query('SELECT * FROM tasks WHERE id = $1', [id], (error, results) => {
-  //   if (error) {
-  //     throw error
-  //   }
-  //   response.status(200).json(results.rows)
-  // })
+const getTaskById = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    const task = await services.getTaskById(id);
+    response.status(200).json(task);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const createTask = (request, response) => {
-  const { courier_id, destination_id, start_time, end_time } = request.body;
-  pool.query(
-    queryTexts.QCreateTask,
-    [courier_id, destination_id, start_time, end_time],
-    (error, results) => {
-      if (error) {
-        hadleControllerError(request, response, error)
-        
-      } else {
-      response.status(201).redirect("/");
-    }
-    }
-  );
- 
+const createTask = async (request, response) => {
+  try {
+    const taskData = request.body;
+    await services.createTask(taskData);
+    response.status(201).redirect("/");
+  } catch (error) {
+    console.log('controller err', error)
+    hadleControllerError(request, response, error);
+  }
 };
 
-const updateTask = (request, response) => {
-  // const id = parseInt(request.params.id)
-  // const { courier_id, destination_id, start_time, end_time } = request.body
-  // pool.query(
-  //   'UPDATE tasks SET courier_id = $1, destination_id = $2, start_time=$3, end_time=$4 WHERE id = $5',
-  //   [courier_id, destination_id, start_time, end_time, id],
-  //   (error, results) => {
-  //     if (error) {
-  //       throw error
-  //     }
-  //     response.status(200).send(`Task modified with ID: ${id}`)
-  //   }
-  // )
+const updateTask = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    const taskData = request.body;
+    await services.updateTask(id, taskData);
+    response.status(200).send(`Task modified with ID: ${id}`);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const deleteTask = (request, response) => {
-  console.log(request.params.id);
-  const id = parseInt(request.params.id);
-  pool.query(queryTexts.QDeleteTask, [id], (error, results) => {
-    if (error) {
-      throw error;
-    }
+const deleteTask = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    await services.deleteTask(id);
     response.status(200).send(`Task deleted with ID: ${id}`);
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {

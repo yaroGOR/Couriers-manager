@@ -1,5 +1,4 @@
 const { body } = require("express-validator");
-const validateTime = require("./checkTime");
 
 const ValidateTaskInput = () => {
   return [
@@ -11,9 +10,6 @@ const ValidateTaskInput = () => {
       .notEmpty()
       .withMessage("Enter when courier should deliver his order"),
     body("courier_id").notEmpty().withMessage("Select courier"),
-    body()
-      .custom((formInput) => validateTime(formInput))
-      .withMessage("Courier is busy. Select another time slot"),
   ];
 };
 

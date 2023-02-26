@@ -1,44 +1,41 @@
-const getData = require("../database/getData");
-const queries = require("../database/queryTexts");
+const { getAllData } = require("../services/alldata");
+const { getCouriers } = require("../services/couriers");
+const { getAllDestinations } = require("../services/destinations");
 
-const sendCouriers = (req, res, next) => {
+const sendCouriers = async (req, res, next) => {
   try {
-    getData(queries.QSelectCouriers).then((result) => {
-      req.couriers = result;
-      next();
-    });
+    const result = await getCouriers();
+    req.couriers = result;
+    next();
   } catch (err) {
     return res.status(500).send({
-      msg: "error",
-      err,
-    });
-  }
-};
-const sendDestinations = (req, res, next) => {
-  try {
-    getData(queries.QSelectDestinations).then((result) => {
-      req.destinations = result;
-      next();
-    });
-  } catch (err) {
-    return res.status(500).send({
-      msg: "error",
+      msg: "Error while sending destinations",
       err,
     });
   }
 };
 
-const sendTableData = (req, res, next) => {
+const sendDestinations = async (req, res, next) => {
   try {
-    getData(queries.QAllData).then((result) => {
-      req.result = result;
-      console.log(result);
-
-      next();
-    });
+    const result = await getAllDestinations();
+    req.destinations = result;
+    next();
   } catch (err) {
     return res.status(500).send({
-      msg: "error",
+      msg: "Error while sending destinations",
+      err,
+    });
+  }
+};
+
+const sendTableData = async (req, res, next) => {
+  try {
+    const result = await getAllData();
+    req.result = result;
+    next();
+  } catch (err) {
+    return res.status(500).send({
+      msg: "Error while sending table data",
       err,
     });
   }

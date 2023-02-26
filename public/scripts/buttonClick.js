@@ -10,4 +10,6 @@ function handleDeleteClick(taskID) {
   console.log(`task with id ${taskID} deleted`);
   Delete("/tasks", taskID);
   alert(`Deleted with id ${taskID}`);
+  window.location.reload()
+
 }
